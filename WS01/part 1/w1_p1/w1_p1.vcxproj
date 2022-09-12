@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\w1_p1.cpp" />
+    <ClCompile Include="carads.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="carads.h" />
