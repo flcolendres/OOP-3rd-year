@@ -1,6 +1,10 @@
-// Workshop 1 
-// Wail Mardini - 2022/07/04
-// Cornel - 2022/09/08
+/**
+* Francis Lloyd Colendres
+* flcolendres@myseneca.ca
+* 145498200
+* Sept. 11, 2022		
+* I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+*/
 
 #include <iostream>
 #include <iomanip>
