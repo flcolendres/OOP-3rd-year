@@ -1,7 +1,8 @@
 #ifndef SDDS_CARADS_H
 #define SDDS_CARADS_H
 #include <iostream>
-extern double g_taxrate, g_discount;
+extern double g_taxrate;
+extern double g_discount;
 namespace sdds 
 {
    class Cars 
@@ -16,6 +17,7 @@ namespace sdds
       Cars();
       std::istream& read(std::istream& is);
       std::ostream& display(bool reset);
+      char getStatus();
    };
    void listArgs(int argc, char* argv[]);
 }
