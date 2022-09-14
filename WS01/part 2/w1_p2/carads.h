@@ -13,8 +13,8 @@ namespace sdds
       double car_price{};
       char car_status{};
       bool car_promo{};
-      bool isNew();
    public:
+      operator bool() const;
       Cars();
       Cars& operator=(const Cars& c);
       ~Cars();

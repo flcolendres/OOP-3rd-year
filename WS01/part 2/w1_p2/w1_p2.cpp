@@ -12,7 +12,8 @@
 constexpr int MAX_CARS = 100;
 
 int cout = 0; // this is intentional
-
+double g_taxrate;
+double g_discount;
 //check the format of the input file at the end of this file
 
 // TODO: write the prototype for the main function

@@ -1,4 +1,6 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <string>
 #include "carads.h"
 using namespace sdds;
 using namespace std;
@@ -10,10 +12,24 @@ void sdds::listArgs(int argc, char* argv[])
       cout << "  " << i + 1 << ": " << argv[i] << endl;
    cout << "--------------------------" << endl << endl;
 }
-bool Cars::isNew()
+
+std::istream& sdds::operator>>(std::istream& is, Cars& car)
+{
+   //<Order Tag>,<Car Brand>,<Car Model>,<Year>,<Price>,<Discount status>
+   return car.read(is);
+}
+
+void sdds::operator>>(const Cars& car1, Cars& car2)
+{
+   car2.operator=(car1);
+}
+
+
+Cars::operator bool() const
 {
    return car_status == 'N';
 }
+
 Cars::Cars()
 {
    operator=(*this);
