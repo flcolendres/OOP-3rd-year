@@ -45,6 +45,7 @@ Cars& Cars::operator=(const Cars& c)
       strcpy(car_brand, c.car_brand);
       strcpy(car_model, c.car_model);
       car_year = c.car_year;
+      car_price = c.car_price;
       car_status = c.car_status;
       car_promo = c.car_promo;
    }
@@ -57,14 +58,21 @@ Cars::~Cars()
 }
 istream& Cars::read(std::istream& is)
 {
+   string str{};
    if (!is.bad())
    {
       //<Order Tag>,<Car Brand>,<Car Model>,<Year>,<Price>,<Discount status>
       is.get(car_status);
       is.ignore(1000, ',');
       is.clear();
-      is.getline(car_brand, 11, ',');
-      is.getline(car_model, 16, ',');
+      getline(is, str, ',');
+      delete[] car_brand;
+      car_brand = new char[strlen(str.c_str()) + 1];
+      strcpy(car_brand, str.c_str());
+      getline(is, str, ',');
+      delete[] car_model;
+      car_model = new char[strlen(str.c_str()) + 1];
+      strcpy(car_model, str.c_str());
       is >> car_year;
       is.ignore(1000, ',');
       is >> car_price;
