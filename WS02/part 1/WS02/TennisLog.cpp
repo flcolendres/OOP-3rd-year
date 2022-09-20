@@ -92,10 +92,19 @@ sdds::TennisLog::TennisLog(const char* fileName)
          tm[i].matchLoser = str.c_str();
          f.ignore(1000, '\n');
       }
-
    }
 }
 
 void sdds::TennisLog::addMatch(TennisMatch& tm)
 {
+   TennisMatch* newTennis;
+   int i = sizeof(tm);
+   newTennis = new TennisMatch[i + 1];
+   newTennis = &tm;
+
+}
+
+TennisLog& sdds::TennisLog::findMatches(const char* name)
+{
+   // // O: insert return statement here
 }
