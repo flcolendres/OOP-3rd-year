@@ -15,17 +15,18 @@ namespace sdds
    {
       std::string tournamentID{};
       std::string tournamentName{};
-      int matchID{};
+      unsigned int matchID{};
       std::string matchWinner{};
       std::string matchLoser{};
    };   
    class TennisLog
    {
+      TennisMatch* tm;
    public:
       TennisLog() {};
       TennisLog(const char* fileName = nullptr);
       void addMatch(TennisMatch& tm);
-      TennisLog& findMatches(const char* name);
+      TennisLog findMatches(const char* name);
       TennisMatch& operator[](size_t);
       operator size_t();
    };

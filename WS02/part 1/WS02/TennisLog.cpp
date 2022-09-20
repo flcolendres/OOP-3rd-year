@@ -62,7 +62,6 @@ std::ostream& sdds::operator<<(std::ostream& os, const TennisMatch& tm)
 
 sdds::TennisLog::TennisLog(const char* fileName)
 {
-   TennisMatch* tm;
    int numMatches = 0;
    string str;
    ifstream f;
@@ -101,10 +100,17 @@ void sdds::TennisLog::addMatch(TennisMatch& tm)
    int i = sizeof(tm);
    newTennis = new TennisMatch[i + 1];
    newTennis = &tm;
-
 }
 
-TennisLog& sdds::TennisLog::findMatches(const char* name)
+TennisLog sdds::TennisLog::findMatches(const char* name)
 {
-   // // O: insert return statement here
+   TennisLog tennis{ 0 };
+   for (int i = 0, found = 0; i < sizeof(tm); i++)
+   {
+      if (tm[i].matchWinner == name)
+         tennis.tm[found++].matchWinner = tm[i].matchWinner;
+      else if (tm[i].matchLoser == name)
+         tennis.tm[found++].matchLoser = tm[i].matchLoser;
+   }
+   return tennis;
 }
