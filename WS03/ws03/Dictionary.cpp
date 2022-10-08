@@ -31,9 +31,6 @@ Dictionary& Dictionary::operator=(const Dictionary& D)
 
 bool sdds::Dictionary::operator==(const Dictionary& D)
 {
-   //bool valid = false;
-   //if ()
-   //   valid = true;
    return getTerm() == D.getTerm();
 }
 

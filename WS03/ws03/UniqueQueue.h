@@ -7,6 +7,8 @@
 * my professor provided to complete my workshops and assignments.
 */
 #pragma once
+#include<cstdlib>
+#include<cmath>
 #include "Queue.h"
 namespace sdds
 {
@@ -14,8 +16,6 @@ namespace sdds
    class UniqueQueue : public Queue <T, 100>
    {
    public:
-      UniqueQueue() {};
-      ~UniqueQueue() {};
       bool push(const T& item);
    };
    template<typename T>
@@ -42,9 +42,9 @@ namespace sdds
       int currentSize = Queue::size();
       for (int i = 0; i < currentSize && !duplicate; i++) // check if there are duplicates
       {
-         if (fabs(Queue::operator[](i)) == item ||
-            fabs(Queue::operator[](i)) >= item - 0.005 &&
-            fabs(Queue::operator[](i)) <= item + 0.005) // if a duplicate is found, set duplicate to true
+         if (std::fabs(Queue::operator[](i)) == item ||
+            (std::fabs(Queue::operator[](i)) >= item - 0.005 && std::fabs(Queue::operator[](i)) <= item + 0.005)
+            ) // if a duplicate is found, set duplicate to true
             duplicate = true;
       }
       if (!duplicate) //pushes the item if there's no duplicates

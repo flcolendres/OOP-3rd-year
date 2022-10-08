@@ -18,7 +18,6 @@ namespace sdds
       static T dummy;
       T collection[CAPACITY]{};
    public:
-      //virtual Queue() {};
       virtual ~Queue() {};
       virtual bool push(const T& item);
       T pop();
@@ -88,7 +87,7 @@ namespace sdds
    T Queue<T, CAPACITY>::dummy = T{};
    // Specialize the class-member object when type T = Dictionary and CAPACITY = 100u so the term is "Empty Term" and the definition is "Empty Substitute"
    template<>
-   Dictionary Queue<Dictionary, 100u>::dummy = Dictionary("Empty Term", "Empty Substitute"); //{ dummy.setTerm("Empty Term"); };
+   Dictionary Queue<Dictionary, 100u>::dummy = Dictionary("Empty Term", "Empty Substitute"); 
 }
 
 //template<typename T, int N>
