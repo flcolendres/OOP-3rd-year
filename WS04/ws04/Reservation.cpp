@@ -24,6 +24,7 @@ namespace sdds {
          m_reservationID = R.m_reservationID;
          m_reservationName = R.m_reservationName;
          m_email = R.m_email;
+         m_numPeople = R.m_numPeople;
          m_day = R.m_day;
          m_hour = R.m_hour;
       }

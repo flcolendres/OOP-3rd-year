@@ -23,10 +23,12 @@ namespace sdds
             delete m_res[i];
          delete[] m_res;
          m_numRes = CS.m_numRes;
-         m_res = new Reservation * [m_numRes];
-         m_res = CS.m_res; 
-         // for(auto i = 0; i < m_numRes; ++i)
-         //    m_res[i] = CS.m_res[i]
+         m_res = new const Reservation * [m_numRes];
+         for (auto i = 0; i < m_numRes; ++i)
+         {
+            m_res[i] = new Reservation();
+            m_res[i] = CS.m_res[i];
+         }
       }
       return *this;
    }
@@ -36,50 +38,65 @@ namespace sdds
    }
    ConfirmationSender& ConfirmationSender::operator=(ConfirmationSender&& CS) noexcept
    {
+      // 1. check for self-assignment
       if (this != &CS)
       {
-         for (auto i = 0u; i < m_numRes; ++i)
-            delete m_res[i];
+         // 2. clean-up the resource used by the current instance
+         //for (auto i = 0u; i < CS.m_numRes; ++i)
+         //   delete m_res[i];
          delete[] m_res;
+         // 3. shallow copy
          m_numRes = CS.m_numRes;
+         // 4. move the resource from parameter into current instance
+            // copy address to current object
          m_res = CS.m_res;
+         //*m_res = *R.m_res;
+         // the parameter doesn't have the resource anymore
          CS.m_res = nullptr;
+         CS.m_numRes = 0;
       }
+
       return *this;
    }
    ConfirmationSender::~ConfirmationSender()
    {
-      for (auto i = 0u; i < m_numRes; ++i)
-         delete m_res[i];
+      //for (auto i = 0u; i < m_numRes; ++i)
+      //   delete m_res[i];
       delete[] m_res;
       m_numRes = 0;
    }
    ConfirmationSender& ConfirmationSender::operator+=(const Reservation& res)
    {
       bool valid = true;
-      //if the address of res is already in the array, this operator does nothing
-      for (auto i = 0; i < m_numRes && valid; ++i)
-         if (&res == &*m_res[i])
+      auto i = 0;
+      //stores the address of res in the array(your function should not make copies of the reservation itself)
+      // if the array is full, resize
+      for (i = 0; i < m_numRes && valid; ++i) //if the address of res is already in the array, this operator does nothing
+      {
+         if (&res == m_res[i])
             valid = false;
+      }
       if (valid)
       {
-         //resizes the array to make room for res if necessary
-         //stores the address of res in the array(your function should not make copies of the reservation itself)
-         if (*m_res[m_numRes - 1]) // if the array is full, resize
+         if (!m_numRes) //if there is no reservation
          {
-            Reservation** newArr = new Reservation * [m_numRes + 1];
-            for (auto i = 0; i < m_numRes - 1; ++i)
-               newArr[i] = m_res[i];
-            *newArr[m_numRes] = res;
+            m_res = new const Reservation * [m_numRes + 1];
+            m_res[0] = new Reservation();
+            m_res[0] = &res;
             m_numRes++;
-            delete[] m_res;
-            m_res = newArr;
          }
-         else // if not, check an empty element.
+         else
          {
-            for (auto i = 0; i < m_numRes && valid; ++i)
+            if (*m_res[m_numRes - 1]) // if array is full, resize.
+               resize();
+            for (i = 0; i < m_numRes && valid; ++i) // search for empty element
+            {
                if (!*m_res[i])
-                  *m_res[i] = res;
+               {
+                  m_res[i] = &res;
+                  valid = false;
+               }
+            }
          }
       }
       return *this;
@@ -87,25 +104,29 @@ namespace sdds
    ConfirmationSender& ConfirmationSender::operator-=(const Reservation& res)
    {
       bool valid = true;
-      //if the address of res is not in the array, this operator does nothing
+      //searches the array for the address of res,
       for (auto i = 0; i < m_numRes && valid; ++i)
-         if (&res != &*m_res[i])
-            valid = false;
-      if (valid)
       {
-         //searches the array for the address of res,
-         for (auto i = 0; i < m_numRes; ++i)
-            if (&res == &*m_res[i])
-               m_res[i] = nullptr;  //sets the pointer in the array to nullptr
-         //if res is found.To challenge yourself, try to actually resize the array.
-         Reservation** newArr = new Reservation * [m_numRes - 1];
-         for (auto i = 0; i < m_numRes - 1; ++i)
-            newArr[i] = m_res[i];
-         m_numRes--;
-         delete[] m_res;
-         m_res = newArr;
+         if (&res == m_res[i])
+         {
+            m_res[i] = nullptr;  //sets the pointer in the array to nullptr
+            valid = false;
+         } 
       }
       return *this;
+   }
+   void ConfirmationSender::resize(const int size)
+   {
+      const Reservation** temp = new const Reservation * [m_numRes + size];
+      for (auto i = 0; i < m_numRes + size; i++) // dynamically allocate each elements
+         temp[i] = new Reservation();
+      for (auto i = 0; i < m_numRes; i++) // copy elements to the temp pointer array.
+         temp[i] = *&m_res[i];
+      //for (auto i = 0; i < m_numRes; i++)
+      //   delete m_res[i];
+      //delete[] m_res;
+      m_res = *&temp;
+      m_numRes += size;
    }
    std::ostream& operator<<(std::ostream& ostr, const ConfirmationSender& CS)
    {
@@ -116,6 +137,7 @@ namespace sdds
             << "--------------------------" << endl;
          for (auto i = 0; i < CS.m_numRes; ++i)
          {
+            if(CS.m_res[i])
             ostr << *CS.m_res[i];
          }
       }
