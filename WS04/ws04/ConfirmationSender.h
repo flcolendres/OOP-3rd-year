@@ -20,7 +20,7 @@ namespace sdds
       const Reservation** m_res{};
       size_t m_numRes{};
    public:
-      ConfirmationSender(){};
+      ConfirmationSender() {};
       // Rule of 5
       ConfirmationSender(const ConfirmationSender& CS); //copy constructor
       ConfirmationSender& operator=(const ConfirmationSender& CS); //copy assignment

@@ -28,7 +28,7 @@ namespace sdds
       Restaurant& operator=(Restaurant&& R) noexcept; // move assignment
       ~Restaurant();
       Restaurant(const Reservation* reservations[], size_t cnt);
-      size_t size() { return m_numRes; }
+      size_t size() const{ return m_numRes; }
       operator bool() const;
       friend std::ostream& operator<<(std::ostream& ostr, const Restaurant& R);
 

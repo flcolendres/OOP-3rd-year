@@ -32,7 +32,7 @@ namespace sdds
          delete[] m_res;
          m_numRes = R.m_numRes;
          m_res = new Reservation * [m_numRes];
-         for (auto i = 0; i < m_numRes; ++i)
+         for (auto i = 0u; i < m_numRes; ++i)
          {
             m_res[i] = new Reservation();
             *m_res[i] = *R.m_res[i];
@@ -69,7 +69,7 @@ namespace sdds
    Restaurant::Restaurant(const Reservation* reservations[], size_t cnt)
    {
       m_res = new Reservation * [cnt];
-      for (auto i = 0; i < cnt; ++i)
+      for (auto i = 0u; i < cnt; ++i)
       {
          m_res[i] = new Reservation();
          *m_res[i] = *reservations[i];
@@ -92,10 +92,11 @@ namespace sdds
          ostr << "--------------------------" << endl
             << "Fancy Restaurant (" << ++CALL_INT << ")" << endl
             << "--------------------------" << endl;
-         for (auto i = 0; i < R.m_numRes; ++i)
+         for (auto i = 0u; i < R.m_numRes; ++i)
          {
             ostr << *R.m_res[i];
          }
+         ostr << "--------------------------" << endl;
       }
       else
       {
