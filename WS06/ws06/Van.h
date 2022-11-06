@@ -9,22 +9,22 @@
 #pragma once
 #include <iostream>
 #include "Vehicle.h"
-using namespace std;
-
 namespace sdds
 {
    class Van : public Vehicle
    {
-      std::string m_maker;
-      char m_type;
-      char m_condition;
-      char m_purpose;
-      double m_topSpeed;
+      std::string m_maker{};
+      std::string m_type{};
+      std::string m_condition{};
+      std::string m_purpose{};
+      double m_topSpeed{};
    public:
-      std::string condition() const;
-      double topSpeed() const;
-      std::string type() const;
-      std::string usage() const;
+      Van() {};
+      Van(std::istream& is);
+      std::string condition() const { return m_condition; };
+      double topSpeed() const { return m_topSpeed; };
+      std::string type() const { return m_type; };
+      std::string usage() const { return m_purpose; };
       void display(std::ostream& out) const;
-   }; 
+   };
 }

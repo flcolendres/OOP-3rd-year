@@ -9,14 +9,15 @@
 #pragma once
 #include <iostream>
 #include "Vehicle.h"
-namespace sdds 
+namespace sdds
 {
    class Car : public Vehicle
    {
-      std::string m_maker;
-      std::string m_condition;
-      double m_topSpeed;
+      std::string m_maker{};
+      std::string m_condition{};
+      double m_topSpeed{};
    public:
+      Car() {};
       Car(std::istream& is);
       std::string condition() const { return m_condition; };
       double topSpeed() const { return m_topSpeed; };
