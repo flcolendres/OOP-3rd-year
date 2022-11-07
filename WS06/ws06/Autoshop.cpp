@@ -36,9 +36,8 @@ namespace sdds
    }
    Autoshop::~Autoshop()
    {
-      int i = 0;
-      for (auto itr = m_vehicles.begin(); itr != m_vehicles.end(); itr++, i++)
-         delete m_vehicles[i];
+      for (auto itr = m_vehicles.begin(); itr != m_vehicles.end(); itr++)
+         delete *itr;
    }
    Autoshop& Autoshop::operator+=(Vehicle* theVehicle)
    {
@@ -50,6 +49,9 @@ namespace sdds
       //for (auto e : m_vehicles)
       //   e->display(out);
       for (auto itr = m_vehicles.begin(); itr != m_vehicles.end(); itr++)
+      {
          (*itr)->display(out);
+         out << endl;
+      }
    }
 }

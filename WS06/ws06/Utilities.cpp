@@ -11,7 +11,8 @@
 #include "Car.h"
 #include "Van.h"
 #include "Utilities.h"
-
+#include "Racecar.h"
+#include "Luxuryvan.h"
 using namespace std;
 namespace sdds
 {
@@ -20,13 +21,24 @@ namespace sdds
       stringstream s;
       string str;
       getline(in, str);
-      s << str;
-      if (s.str()[0] == 'c' || s.str()[0] == 'C')
-         return new Car(s);
-      else if (s.str()[0] == 'V' || s.str()[0] == 'v')
-         return new Van(s);
-      else
-         return nullptr;
+      if (str != "")
+      {
+         trim(str);
+         s << str;
+         if (s.str()[0] == 'c' || s.str()[0] == 'C')
+            return new Car(s);
+         else if (s.str()[0] == 'V' || s.str()[0] == 'v')
+            return new Van(s);
+         else if (s.str()[0] == 'r' || s.str()[0] == 'R')
+            return new Racecar(s);
+         else if (s.str()[0] == 'l' || s.str()[0] == 'L')
+            return new Luxuryvan(s);
+         else
+         {
+            throw(str[0]);
+         }
+      }
+      return nullptr;
    }
    void trim(std::string& str)
    {

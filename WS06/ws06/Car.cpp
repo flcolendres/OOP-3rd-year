@@ -18,30 +18,34 @@ namespace sdds
    {
       string str;
       getline(is, str);
-      if (str[0] == 'C' || str[0] == 'c')
+      trim(str);
+      if (str[0] == 'C' || str[0] == 'c' || str[0] == 'R' || str[0] == 'r')
       {
          str.erase(0, str.find(',') + 1);
          m_maker = str.substr(0, str.find(','));
          trim(m_maker);
          str.erase(0, str.find(',') + 1);
          trim(str);
-         if (str[0] == 'n')
+         if (str[0] == 'n' || str[0] == ',') // ',' represents empty record
             m_condition = "new";
          else if (str[0] == 'u')
             m_condition = "used";
          else if (str[0] == 'b')
             m_condition = "broken";
+         else
+            throw("Invalid record!");
          str.erase(0, str.find(',') + 1);
-         if (stoi(str))
-         {
+         trim(str);
+         if (isdigit(str[0]))
             m_topSpeed = stod(str);
-         }
+         else
+            throw("Invalid record!");
       }
    }
    void Car::display(std::ostream& out) const
    {
       //| MAKER | CONDITION | TOP_SPEED |
-      out << "| " << setw(10) << m_maker << " | " 
-         << setw(6) << left << m_condition << " | " << right << setw(6) << fixed << setprecision(2) << m_topSpeed << " |" << endl;
+      out << "| " << setw(10) << m_maker << " | "
+         << setw(6) << left << m_condition << " | " << right << setw(6) << fixed << setprecision(2) << topSpeed() << " |";
    }
 }

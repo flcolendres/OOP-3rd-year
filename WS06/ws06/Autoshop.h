@@ -9,6 +9,8 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <iterator>
+#include <list>
 #include "Vehicle.h"
 namespace sdds
 {
@@ -24,5 +26,16 @@ namespace sdds
       ~Autoshop();
       Autoshop& operator+=(Vehicle* theVehicle);
       void display(std::ostream& out) const;
+      template <typename T>
+      void select(T test, std::list<const Vehicle*>& vehicles)
+      {
+         for (auto itr = m_vehicles.begin(); itr != m_vehicles.end(); itr++)
+         {
+            if (test(*itr))
+            { 
+               vehicles.push_back(*itr);
+            }
+         }
+      }
    };
 }

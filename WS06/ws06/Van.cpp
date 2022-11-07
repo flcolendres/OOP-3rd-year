@@ -17,7 +17,8 @@ namespace sdds
    {
       string str;
       getline(is, str);
-      if (str[0] == 'v' || str[0] == 'V')
+      trim(str);
+      if (str[0] == 'v' || str[0] == 'V' || str[0] == 'l' || str[0] == 'L')
       {
          str.erase(0, str.find(',') + 1);
          m_maker = str.substr(0, str.find(','));
@@ -29,6 +30,8 @@ namespace sdds
             m_type = "mini-bus";
          else if (str[0] == 'c')
             m_type = "camper";
+         else
+            throw("Invalid record!");
          str.erase(0, str.find(',') + 2);
          if (str[0] == 'd')
             m_purpose = "delivery";
@@ -36,15 +39,21 @@ namespace sdds
             m_purpose = "passenger";
          else if (str[0] == 'c')
             m_purpose = "camping";
-         str.erase(0, str.find(',') + 2);
-         if (str[0] == 'n')
+         else
+            throw("Invalid record!");
+         str.erase(0, str.find(',') + 1);
+         trim(str);
+         if (str[0] == 'n' || str[0] == ',') // ',' represents empty record
             m_condition = "new";
          else if (str[0] == 'u')
             m_condition = "used";
          else if (str[0] == 'b')
             m_condition = "broken";
+         else
+            throw("Invalid record!");
          str.erase(0, str.find(',') + 1);
-         if (stoi(str))
+         trim(str);
+         if (isdigit(str[0]))
          {
             m_topSpeed = stod(str);
          }
@@ -55,6 +64,6 @@ namespace sdds
    {
       //| MAKER | TYPE | USAGE | CONDITION | TOP_SPEED |
       out << "| " << setw(8) << m_maker << " | " << setw(12) << left << m_type << " | " << setw(12) << m_purpose << " | "
-         << setw(6) << m_condition << " | " << right << setw(6) << fixed << setprecision(2) << m_topSpeed << " |" << endl;
+         << setw(6) << m_condition << " | " << right << setw(6) << fixed << setprecision(2) << m_topSpeed << " |";
    }
 }
