@@ -1,0 +1,13 @@
+/*
+* Francis Lloyd Colendres
+* flcolendres@myseneca.ca
+* 145498200
+* Nov. 08, 2022
+* I have done all the coding by myself and only copied the code that
+* my professor provided to complete my workshops and assignments.
+*/
+In this workshop, I used the algorithm and numeric library. It was challenging because I could have just used for_each on every methods. However, I realized that the purpose of this workshop is to explore the algorithm library and understand each purpose. For example, I used the transform function in the cleanList. I could have used the replace_if function, but I would have needed to create an operator=() that would allow me to replace the "[None]" with an empty string. In the function inCollection(), I used the any_of which searches the container and determines whether or not the condition is met. The getListForProvince uses a copy_if to copy all the elements of the crime vector into crime list which meets the given condition. I noticed that algorithms don't resize containers. To solve this issue, I initialized the crime list to have the same size as the crime vector. Then, I stored the copy_if result into an iterator because copy_if returns an iterator of the last copied element. Finally, I resized the crime list to the distance between the beginning of crime list and the last element copied. For display() method, I used the for each to display each element of the crime vector using the overloaded insertion operator. Then, I used the numeric library's accumulate function to get the total value of both crimes and resolved crimes.
+
+STL algorithms are advantageous because it saves time for the programmer when implementing methods that require repeated tasks. For example, in sort function, rather than manually sorting the vector using manual loops and creating local variables to store a temporary vector element, there is a built in sort algorithm which allows the programmer to sort a vector. This saves the programmer's time and also makes the code look cleaner by using less lines. STL algorithms also prevent the mistakes made by programmer through compiler errors. In addition, the STL algorithms perform tasks in the most efficient way possible. If I implement a certain functionality which works as similar as one of the algorithm functions, there is a chance that the algorithm function would perform the task in a faster rate.
+
+I would implement an input validation function and inside this function, there would be a while loop that checks if the input entered by the client matches any of the field name. The client can only exit the loop once the client inputs the proper field name. This ensures that the client entered a valid field before sorting the Crime collection.
